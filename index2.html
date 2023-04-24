@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魔王ジピル登場</title>
+    <link rel="stylesheet" type="text/css" href="style2.css" />
+
+</head>
+
+<body>
+
+    <audio id="audio" src="audio/17 虐殺.wav" autoplay></audio>
+
+
+
+
+
+
+    <div class="container">
+
+        <img id="maoh" src="img/maou.jpeg" alt="魔王の画像" />
+
+
+        <div class="balloon" id="dialogue">
+            <span
+                id="text">ハッハッハ、それで勝ったつもりか仮面ライダーG's！、本当の魔改造はこれからだ！じゃんけんの怪人よ、何をしている？人間どもを滅ぼすのだ！ハッハッハ！はっはっはっはっはっはッ！っはっはっはっはっはッ！</span>
+        </div>
+
+
+        <script>
+            window.onload = function () {
+                setTimeout(function () {
+                    document.getElementById('dialogue').style.display = 'block';
+                }, 3000);
+            };
+        </script>
+        <script src="js/script2.js"></script>
+        <script>
+            const text = document.getElementById('text');
+            const str = text.innerHTML;
+            text.innerHTML = '';
+            let i = 0;
+            const timer = setInterval(function () {
+                if (i < str.length) {
+                    text.innerHTML += str.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 150);
+
+        </script>
+
+        <style>
+            @keyframes blackhole {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                to {
+                    opacity: 0;
+                    transform: scale(0.1);
+                }
+            }
+
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                opacity: 0;
+                z-index: -1;
+                animation: fade-in 3s ease 5s forwards;
+            }
+
+            @keyframes fade-in {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+        </style>
+        <script>
+            setTimeout(() => {
+                document.body.style.backgroundColor = "black";
+                document.body.style.animation = "blackhole 10s ease 0s";
+                document.body.style.transformOrigin = "center center";
+            }, 10000);
+        </script>
+        <script>
+            setTimeout(function () {
+                location.href = "kyodaika.html";
+            }, 15000);
+
+        </script>
+</body>
+
+</html>

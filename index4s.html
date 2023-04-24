@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>？？？</title>
+    <link rel="stylesheet" type="text/css" href="css/style4.css" />
+    <style>
+        #skipButton {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: #F00;
+            color: #FFF;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            z-index: 100;
+        }
+
+        #skipButton:hover {
+            background-color: #900;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="skipButton" onclick="location.href='index5s.html'">Skip</button>
+
+
+    <audio id="audio" src="audio/mate.mp3" autoplay></audio>
+
+    <!-- <button id="play-button">まてー！</button>
+    <audio id="audio" src="/audio/mate.mp3"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var playButton = document.getElementById('play-button');
+            var audio = document.getElementById('audio');
+            playButton.addEventListener('click', function () {
+                audio.play();
+            });
+        }); -->
+    </script>
+    <!-- <audio id="audio" src="/audio/mate.mp3"></audio> -->
+    <div id="text-wrapper">
+        <h1 id="text">まてー！</h1>
+    </div>
+    <script>
+        window.onload = function () {
+            var audio = document.getElementById("audio");
+            audio.play();
+        }
+    </script>
+
+    <script>
+        setTimeout(function () {
+            location.href = "index5s.html";
+        }, 3000);
+
+    </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>スターウォーズ風アニメーション</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 300px;
+        }
+
+        .crawl-container {
+            font-family: 'Arial', sans-serif;
+            color: #ffd900;
+            font-size: 80px;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            transform-origin: 50% 100%;
+            animation: crawl 60s linear;
+        }
+
+        @keyframes crawl {
+            0% {
+                transform: rotateX(20deg) translateY(0);
+            }
+
+            100% {
+                transform: rotateX(20deg) translateY(-2500px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="audio" src="audio/ending2.mp3" autoplay></audio>
+
+    <div class="crawl-container">
+        遥か彼方の銀河系で<br>チーズの怪人を倒したのも束の間<br>次に現れる脅威は魔王ジピルによって生み出されたじゃんけんの怪人であった！<br>再び世界の危機を救うため<br>伝説のヒーロー仮面ライダーG'sが立ち上がり<br>激闘の末にじゃんけんの怪人を倒したかに見えた<br>
+
+        だが、倒したと思った矢先<br>魔王ジピルの凶悪な力によってじゃんけんの怪人は生き返り<br>さらに恐るべき魔改造を受け<br>巨大化してしまった<br>巨大化されたじゃんけんの怪人に対して<br>仮面ライダーG'sの力は及ばないかに見えた<br>しかし、彼は幾多の先輩が実装してきた伝説のコマンドを思い出す<br>
+
+        窮地に立たされた仮面ライダーG'sは賭けに出る<br>彼は古の秘技を召喚するかのように<br>↑、↑、↓、↓、←、→、←、→、B、Aを入力<br>すると、どこからともなく不思議な力が流れ込み<br>驚異的なパワーを得て<br>巨大化したじゃんけんの怪人を見事に倒すことができたのであった<br>
+
+        こうして、再び平和がアカデミーに訪れる<br>だが、しかし、まだ魔王ジピルは生きている<br>その力は急激な速度で成長を続けている<br>果たして、この先エンジニアたちは生き延びることができるのだろうか？<br>彼らの戦いはまだ終わらない…<br>
+        その壮大な物語は続く...
+    </div>
+
+</body>
+
+</html>

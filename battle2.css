@@ -1,0 +1,118 @@
+body {
+    background-color: black;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+#enemy-command-message {
+    margin-top: 5vh;
+    /* margin-bottom: 2vh; */
+}
+
+.pokemon-name,
+.move,
+.hp {
+    color: black;
+}
+
+#battle-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 60vh;
+    /* あえてheithを６０vhに設定することで巨大感を演出した */
+}
+
+.pokemon1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border: 3px solid #000000;
+    border-radius: 20px;
+    margin: 10px;
+    overflow: hidden;
+}
+
+.pokemon2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border: 3px solid #000000;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.pokemon1 img {
+    width: 800px;
+    height: 800px;
+}
+
+.pokemon2 img {
+    width: 50px;
+    height: 50px;
+}
+
+.pokemon-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.moves-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.move {
+    padding: 10px;
+    background-color: #FFFFFF;
+    border: 3px solid #000000;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+    animation: fadeIn 2s ease-out forwards;
+    animation-delay: 2s;
+    opacity: 0;
+}
+
+.move:hover {
+    background-color: #F2F2F2;
+}
+
+.move.selected {
+    background-color: #F2F2F2;
+}
+
+.move.defense {
+    background-color: #A2D9CE;
+}
+
+.move.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.move.attack {
+    border-color: #FF0000;
+}
+
+.move.defense {
+    border-color: #0000FF;
+}

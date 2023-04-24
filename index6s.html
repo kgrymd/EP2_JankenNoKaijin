@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>きんに君登場</title>
+    <link rel="stylesheet" type="text/css" href="css/style6.css" />
+    <style>
+        #skipButton {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: #F00;
+            color: #FFF;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            z-index: 100;
+        }
+
+        #skipButton:hover {
+            background-color: #900;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="skipButton" onclick="location.href='index6-2.html'">Skip</button>
+
+
+    <audio id="audio" src="audio/henshin01.mp3" autoplay></audio>
+
+
+    <!-- <button id="play-button">効果音</button>
+    <audio id="audio" src="/audio/henshin01.mp3"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var playButton = document.getElementById('play-button');
+            var audio = document.getElementById('audio');
+            playButton.addEventListener('click', function () {
+                audio.play();
+            });
+        });
+    </script> -->
+    <audio id="audio" src="audio/henshin2.mp3"></audio>
+    <img src="img/maskedridergs.png" alt="仮面ライダーの画像" id="kamen-rider">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                var kamenRider = document.getElementById('kamen-rider');
+                kamenRider.style.display = "block";
+            }, 3000);
+        });
+
+    </script>
+
+    <script>
+        setTimeout(function () {
+            location.href = "index6-2.html";
+        }, 12000);
+
+    </script>
+</body>
+
+</html>

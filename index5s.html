@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        /* 画面中央に配置するためのスタイル */
+        img {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes maoh-appear {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #maoh {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: maoh-appear 2s ease-out;
+        }
+
+        /* スキップボタンのスタイル */
+        #skipButton {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: #F00;
+            color: #FFF;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            z-index: 100;
+        }
+
+        #skipButton:hover {
+            background-color: #900;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="skipButton" onclick="location.href='index6s.html'">Skip</button>
+
+
+    <audio id="audio" src="audio/henshinn.mp3" autoplay></audio>
+
+    <!-- <div class="black-screen">
+        <div class="center-text">まて！</div>
+    </div> -->
+    <img id="maoh" src="img/kinnikun.jpg" alt="きんに君の画像" />
+
+    <script>
+        setTimeout(function () {
+            location.href = "index6s.html";
+        }, 2500);
+
+    </script>
+</body>
+
+</html>

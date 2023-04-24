@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>バトル！</title>
+    <style>
+        body {
+            background-color: #B5D0E8;
+        }
+
+        #battle-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+        }
+
+        .pokemon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border: 3px solid #000000;
+            border-radius: 20px;
+            margin: 10px;
+        }
+
+        .pokemon img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .pokemon-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .moves-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .move {
+            padding: 10px;
+            background-color: #FFFFFF;
+            border: 3px solid #000000;
+            border-radius: 10px;
+            margin: 10px;
+            cursor: pointer;
+            animation: fadeIn 2s ease-out forwards;
+            animation-delay: 2s;
+            opacity: 0;
+        }
+
+        .move:hover {
+            background-color: #F2F2F2;
+        }
+
+        .move.selected {
+            background-color: #F2F2F2;
+        }
+
+        .move.defense {
+            background-color: #A2D9CE;
+        }
+
+        .move.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .move.attack {
+            border-color: #FF0000;
+        }
+
+        .move.defense {
+            border-color: #0000FF;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <audio src="audio/battlebgm2.mp3" id="battle-audio" autoplay loop></audio>
+
+    <audio id="power-audio" src="audio/power.mp3"></audio>
+    <audio id="yaaaa-audio" src="audio/yaaaa.mp3"></audio>
+    <audio id="width-audio" src="audio/width.mp3"></audio>
+    <audio id="height-audio" src="audio/height.mp3"></audio>
+    <audio id="opacity-audio" src="audio/opacity.mp3"></audio>
+    <audio id="hissatsu-audio" src="audio/hissatsu.mp3"></audio>
+    <audio id="konami-audio" src="audio/konamicomand.mp3"></audio>
+
+
+    <!-- 敵のコマンドを表示するための div を追加 -->
+    <div id="enemy-command-message" style="text-align: center; font-size: 20px; font-weight: bold;"></div>
+
+
+    <div id="battle-wrapper">
+        <div class="pokemon">
+            <img src="img/JankenNoKaijin.jpeg" alt="じゃんけんの怪人">
+            <div class="pokemon-name">じゃんけんの怪人</div>
+            <div class="hp">HP: 50 / 50</div>
+        </div>
+        <div class="pokemon">
+            <img src="img/maskedridergs.png" alt="仮面ライダー">
+            <div class="pokemon-name">仮面ライダーG's</div>
+            <div class="hp">HP: 29 / 29</div>
+        </div>
+    </div>
+
+    <div id="turn-message" style="text-align: center; font-size: 24px; font-weight: bold;"></div>
+
+
+    <div class="moves-wrapper">
+        <div class="move" data-command="0">WIDTH</div>
+        <div class="move" data-command="1">HEIGHT</div>
+        <div class="move" data-command="2">POWER</div>
+        <div class="move" data-command="3">YAAAA</div>
+        <div class="move" data-command="4">OPACITY</div> <!-- OPACITYコマンドを追加 -->
+
+    </div>
+
+    <script>
+        $(function () {
+            // グローバル変数
+            var kaijinscaleX = 1;
+            var kaijinscaleY = 1;
+            var riderscaleX = 1;
+            var riderscaleY = 1;
+            var hp1 = 50;
+            var hp2 = 29;
+            var playerTurn = true;
+
+            function resizeImgW() {
+                kaijinscaleX *= 0.5;
+                $('.pokemon:first-of-type img').css('transform', 'scale(' + kaijinscaleX + ', ' + kaijinscaleY + ')');
+            }
+
+            function resizeImgH() {
+                kaijinscaleY *= 0.5;
+                $('.pokemon:first-of-type img').css('transform', 'scale(' + kaijinscaleX + ', ' + kaijinscaleY + ')');
+            }
+
+            function resizeImgWH() {
+                riderscaleX *= 0.5;
+                // riderscaleY *= 0.5; 消した
+                $('.pokemon:last-of-type img').css('transform', 'scale(' + riderscaleX + ', ' + riderscaleY + ')');
+            }
+
+            function resizeImgHH() {
+                riderscaleY *= 0.5;
+                $('.pokemon:last-of-type img').css('transform', 'scale(' + riderscaleX + ', ' + riderscaleY + ')');
+            }
+
+            function playAudio(id) {
+                $('#' + id)[0].play();
+            }
+
+            function stopAudio(audioId) {
+                const $audioElement = $('#' + audioId);
+                if ($audioElement.length) {
+                    $audioElement[0].pause();
+                    $audioElement[0].currentTime = 0;
+                } else {
+                    console.error('Audio element not found:', audioId);
+                }
+            }
+
+            //OPACITYコマンドを追加した↓
+            function applyOpacity(target) {
+                var targetImg = target === 1 ? $('.pokemon:first-of-type img') : $('.pokemon:last-of-type img');
+                var currentOpacity = parseFloat(targetImg.css('opacity'));
+                targetImg.css('opacity', currentOpacity - 0.5);//*を-に変えた。確認ようにとりま0.5に変えた。最終的に0.25にする。　
+            }
+
+            function reduceHp(pokemonIndex, amount) {
+                if (pokemonIndex === 1) {
+                    hp1 -= amount;
+                    $('.pokemon:first-of-type .hp').text('HP: ' + hp1 + ' / 50');
+
+                    if (hp1 <= 0) {
+                        setTimeout(function () {
+                            window.location.href = 'index8-1.html';
+                        }, 2000);
+                    }
+
+                } else if (pokemonIndex === 2) {
+                    hp2 -= amount;
+                    $('.pokemon:last-of-type .hp').text('HP: ' + hp2 + ' / 29');
+
+                    if (hp2 <= 0) {
+                        setTimeout(function () {
+                            window.location.href = 'index8-2-1.html';
+                        }, 2000);
+                    }
+                }
+            }
+
+            function toggleTurn() {
+                playerTurn = !playerTurn;
+                updateCommandStyles();
+                updateTurnMessage(); // この行を追加した
+            }
+
+            // ターンメッセージを更新する関数を追加した
+            function updateTurnMessage() {
+                $('#turn-message').text(playerTurn ? '攻撃コマンドを選べ！' : '防御コマンドを選べ！');
+            }
+
+
+            function updateCommandStyles() {
+                $('.move').each(function (index, move) {
+                    $(move).removeClass('attack defense');
+                    $(move).addClass(playerTurn ? 'attack' : 'defense');
+                });
+            }
+
+
+
+            // 敵のターンの実装を変更
+            function enemyTurn() {
+                var enemyCommand = Math.floor(Math.random() * 5);//opacity追加したので5に変更
+                displayEnemyCommand(enemyCommand); // この行を追加
+                setTimeout(function () {
+                    var playerCommand = $('.selected').data('command');
+                    if (playerTurn) {
+                        if (enemyCommand !== playerCommand) {
+                            applyCommandEffect(playerCommand, 1);
+                        }
+                    } else {
+                        if (enemyCommand !== playerCommand) {
+                            applyCommandEffect(enemyCommand, 2);
+                        }
+                    }
+                    clearSelected();
+                    toggleTurn();
+                    setTimeout(enableMoves, 1000); //変更した
+                }, 1000);
+            }
+
+            // 敵のコマンドを画面に表示する関数を追加
+            function displayEnemyCommand(command) {
+                var commandText;
+                switch (command) {
+                    case 0:
+                        commandText = "WIDTH";
+                        break;
+                    case 1:
+                        commandText = "HEIGHT";
+                        break;
+                    case 2:
+                        commandText = "POWER";
+                        break;
+                    case 3:
+                        commandText = "YAAAA";
+                        break;
+                    case 4: //追加した
+                        commandText = "OPACITY";
+                        break;
+
+                }
+                var message = playerTurn ? "じゃんけんの怪人の防御: " : "じゃんけんの怪人の攻撃: ";
+                $('#enemy-command-message').text(message + commandText + "！");
+            }
+
+            function applyCommandEffect(command, target) {
+                switch (command) {
+                    case 0:
+                        playAudio('width-audio');
+                        if (target === 1) {
+                            resizeImgW(); //怪人にwidth
+                        } else {
+                            resizeImgWH(); //ライダーにwidth
+                        }
+                        reduceHp(target, 5);// targetに５ダメージ
+                        break;
+                    case 1:
+                        playAudio('height-audio');
+                        if (target === 1) {
+                            resizeImgH();
+                        } else {
+                            resizeImgHH();
+                        }
+                        reduceHp(target, 5);
+                        break;
+                    case 2:
+                        playAudio('power-audio');
+                        reduceHp(target, 1);
+                        break;
+                    case 3:
+                        playAudio('yaaaa-audio');
+                        reduceHp(target, 1);
+                        break;
+
+                    case 4: // OPACITYコマンドの効果を適用
+                        playAudio('opacity-audio');
+                        applyOpacity(target);
+                        let ImgOpacity1 = parseFloat($('.pokemon:first-of-type img').css('opacity'));
+                        let ImgOpacity2 = parseFloat($('.pokemon:last-of-type img').css('opacity'));
+                        if (ImgOpacity1 <= 0) {
+                            setTimeout(function () {
+                                window.location.href = 'index8-1.html';
+                            }, 1000);
+                        } else if (ImgOpacity2 <= 0) {
+                            setTimeout(function () {
+                                window.location.href = 'index8-2-1.html';
+                            }, 1000);
+                        }
+
+                        break;
+
+                }
+            }
+
+            function selectCommand(moveElement) {
+                clearSelected();
+                moveElement.addClass('selected');
+            }
+
+            function clearSelected() {
+                $('.move').removeClass('selected');
+            }
+
+            function disableMoves() {
+                $('.move').addClass('disabled');
+            }
+
+            function enableMoves() {
+                $('.move').removeClass('disabled');
+            }
+
+            $('.move').on('click', function () {
+                if (!$(this).hasClass('disabled')) {
+                    selectCommand($(this));
+                    disableMoves();
+                    setTimeout(enemyTurn, 1000);//変更した
+                }
+            });
+
+            updateCommandStyles();
+            updateTurnMessage(); // この行を追加した
+            $(document).keydown(function (e) {
+                if (e.keyCode === konamiKeys[konamiIndex++]) {
+                    if (konamiIndex === konamiKeys.length) {
+                        // KONAMIコマンドが完了したときの処理
+                        playAudio('konami-audio');
+                        stopAudio('battle-audio');
+                        $('.pokemon:last-of-type img').animate({ 'width': '1000px', 'height': '1000px' }, 1500);
+
+                        setTimeout(function () {
+                            playAudio('hissatsu-audio');
+                        }, 1900);
+
+                        setTimeout(function () {
+                            $('.pokemon:first-of-type img').css('transform', 'scale(' + 0.001 + ', ' + 0.001 + ')');
+                            $('.pokemon:first-of-type .hp').text('HP: ' + 0 + ' / 50');
+                        }, 2000);
+
+                        // 指数関数的に増加させるアニメーション
+                        let hpExpIncrease = 1;
+                        let hpIncreaseInterval = setInterval(function () {
+                            hp2 = Math.floor(hp2 * Math.pow(2, hpExpIncrease));
+                            $('.pokemon:last-of-type .hp').text('HP: ' + hp2 + ' / ∞');
+                            hpExpIncrease += 0.1;
+                        }, 150);
+
+                        // 1.5秒後に無限大に更新
+                        setTimeout(function () {
+                            clearInterval(hpIncreaseInterval);
+                            $('.pokemon:last-of-type .hp').text('HP: ∞ / ∞');
+                        }, 1500);
+
+                        setTimeout(function () {
+                            window.location.href = 'index8-1.html';
+                        }, 13000);
+
+                        konamiIndex = 0;
+                    }
+
+
+                } else {
+                    konamiIndex = 0;
+                }
+            });
+        });
+
+        var konamiKeys = [
+            38, // up arrow key
+            38, // up arrow key
+            40, // down arrow key
+            40, // down arrow key
+            37, // left arrow key
+            39, // right arrow key
+            37, // left arrow key
+            39, // right arrow key
+            66, // b key
+            65  // a key
+        ];
+        var konamiIndex = 0;
+    </script>
+</body>
+
+</html>

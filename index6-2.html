@@ -1,0 +1,62 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style6-2.css">
+    <title>アニメーション</title>
+</head>
+
+<body>
+
+    <audio id="audio" src="audio/battlebgm1.mp3" autoplay></audio>
+
+
+
+    <div class="background-image"></div>
+    <div class="grid-container">
+        <div class="grid-item" id="item1"></div>
+        <div class="grid-item" id="item2"></div>
+        <div class="grid-item" id="item3"></div>
+        <div class="grid-item" id="item4"></div>
+        <div class="grid-item" id="item5"></div>
+        <div class="grid-item" id="item6"></div>
+        <div class="grid-item" id="item7"></div>
+        <div class="grid-item" id="item8"></div>
+        <div class="grid-item" id="item9"></div>
+        <div class="grid-item" id="item10"></div>
+        <div class="grid-item" id="item11"></div>
+        <div class="grid-item" id="item12"></div>
+        <div class="grid-item" id="item13"></div>
+        <div class="grid-item" id="item14"></div>
+        <div class="grid-item" id="item15"></div>
+        <div class="grid-item" id="item16"></div>
+    </div>
+    <script>
+        const gridItems = document.querySelectorAll(".grid-item");
+
+        // グリッドアイテムの順番を定義
+        const order = [
+            10, 9, 5, 6,
+            7, 11, 15, 14,
+            13, 12, 8, 4,
+            0, 1, 2, 3
+        ];
+
+        order.forEach((itemIndex, index) => {
+            setTimeout(() => {
+                gridItems[itemIndex].style.backgroundColor = "black";
+            }, index * 200); // 時間差を調整する場合は、200を適切な値に変更してください。
+        });
+    </script>
+    <script>
+        setTimeout(function () {
+            location.href = "battle.html";
+        }, 3300);
+
+    </script>
+</body>
+
+</html>

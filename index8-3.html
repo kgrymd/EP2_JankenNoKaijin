@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>じゃんけんの怪人の解放</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            color: #FFF;
+            font-size: 24px;
+            text-align: center;
+            padding: 0 30px;
+            position: relative;
+        }
+
+        .dialogue {
+            animation: fadeIn 7s linear;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .background-effect {
+            position: absolute;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #FFF0 0%, #FFF0 40%, #FFF 80%);
+            animation: pulse 5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.7;
+            }
+        }
+    </style>
+    <script>
+        // function goToPageC() {
+        //     setTimeout(function () {
+        //         window.location.href = 'index9.html';
+        //     }, 8000);
+        // }
+    </script>
+</head>
+
+<body onload="goToPageC()">
+    <div class="background-effect"></div>
+    <div class="dialogue">
+        僕は一体何をしていたんだ...<br>
+        みんなに立派なGEEKになってほしかっただけなのに...
+    </div>
+
+    <audio id="audio" src="audio/15 世界.wav" autoplay></audio>
+
+    <script>
+        setTimeout(function () {
+            location.href = "index9.html";
+        }, 6000);
+
+    </script>
+</body>
+
+</html>

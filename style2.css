@@ -1,0 +1,70 @@
+body {
+    background: black;
+}
+
+img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes maoh-appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#maoh {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: maoh-appear 2s ease-out;
+}
+
+
+
+.balloon {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+    margin: 20px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: none;
+    font-size: 24px;
+}
+
+
+
+/* 追加 */
+#dialogue {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.balloon:before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    top: 98%;
+    margin-left: -10px;
+    border-top: 20px solid black;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-radius: 10px;
+}

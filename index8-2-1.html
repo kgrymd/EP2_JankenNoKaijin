@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>デモンズソウル風死亡画面</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .you-died {
+            color: #C00;
+            font-size: 72px;
+            font-weight: bold;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards, scaleIn 2s 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.8);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="audio" src="audio/youdied.mp3" autoplay></audio>
+
+
+    <div class="you-died">You Died</div>
+
+    <script>
+        setTimeout(function () {
+            location.href = "battle.html";
+        }, 8000);
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>シン・じゃんけんアプリ</title>
+    <meta name="description" content=“世界を変えるチーズを作ろう。チーズアカデミーは、チーズ職人を養成するための学校です。”>
+    <meta property="og:title" content="チーズアカデミー">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="#" />
+    <meta property="og:site_name" content="チーズアカデミー" />
+    <meta property="og:description" content="世界を変えるチーズを作ろう。チーズアカデミーは、チーズ職人を養成するための学校です。" />
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="#">
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/sanitize.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!-- あらかじめcssを読み込んでいるので設定しなくてOK-->
+
+</head>
+
+
+<body>
+
+
+
+
+
+
+    <div class="container">
+
+        <!-- ここから記述しよう -->
+        <!DOCTYPE html>
+        <html lang="ja">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="sample.css">
+            <title>じゃんけん</title>
+        </head>
+
+        <body>
+            <header>
+                <h1>じゃんけん</h1>
+            </header>
+
+            <main>
+                <ul>
+                    <li id="gu_btn">グー</li>
+                    <li id="cho_btn">チョキ</li>
+                    <li id="par_btn">パー</li>
+                </ul>
+                <div id="com_hand">コンピュータの出した手は？</div>
+
+                <div id="result">結果は？</div>
+            </main>
+
+            <footer>フッター</footer>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+            <script>
+                function getPCHand() {
+                    const hands = ['ぐー', 'ちょき', 'ぱー'];
+                    return hands[Math.floor(Math.random() * 3)];
+                }
+
+                function getResult(playerHand, pcHand) {
+                    if (playerHand === pcHand) {
+                        return 'あいこ！';
+                    }
+                    if (
+                        (playerHand === 'ぐー' && pcHand === 'ちょき') ||
+                        (playerHand === 'ちょき' && pcHand === 'ぱー') ||
+                        (playerHand === 'ぱー' && pcHand === 'ぐー')
+                    ) {
+                        return 'かち！';
+                    }
+                    return 'まけ！';
+                }
+
+                function playJanken(playerHand) {
+                    const pcHand = getPCHand();
+                    const result = getResult(playerHand, pcHand);
+                    $("#com_hand").html(`コンピュータの出した手は？: ${pcHand}`);
+                    $("#result").html(`結果は？: ${result}`);
+                }
+
+                $("#gu_btn").on("click", function () {
+                    playJanken("ぐー");
+                });
+
+                $("#cho_btn").on("click", function () {
+                    playJanken("ちょき");
+                });
+
+                $("#par_btn").on("click", function () {
+                    playJanken("ぱー");
+                });
+
+
+            </script>
+
+        </body>
+
+        </html>
+
+
+
+    </div>
+    <style>
+        @keyframes blackhole {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.1);
+            }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            opacity: 0;
+            z-index: -1;
+            animation: fade-in 3s ease 5s forwards;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <script>
+        setTimeout(() => {
+            document.body.style.backgroundColor = "black";
+            document.body.style.animation = "blackhole 3s ease 0s";
+            document.body.style.transformOrigin = "center center";
+        }, 6000);
+    </script>
+    <script>
+        setTimeout(function () {
+            location.href = "index2-1.html";
+        }, 8600);
+
+    </script>
+
+
+
+</body>
+
+</html>
